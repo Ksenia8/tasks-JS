@@ -126,8 +126,17 @@ returnFirstArgument("привет");
   
      console.log(newSum()) выведет 6
    */
-  function bindFunction(fn) {
+  function sum(a,b) {
+    return a + b;
   }
+  
+  function bindFunction(fn, a, b) {
+    return fn(a,b);
+  
+  }
+    
+  var newSum = bindFunction(sum, 2, 4);
+  console.log(newSum);
   
   export {
       returnFirstArgument,
