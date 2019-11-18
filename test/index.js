@@ -1,11 +1,3 @@
-import assert from 'assert';
-
-describe('Test', () => {
-    it('should work', () => {
-        assert.isTrue(true);
-    });
-});
-
 import { assert } from 'chai';
 import { randomValue as random, randomStringArray } from '../helper';
 import {
