@@ -75,7 +75,26 @@ function upperProps(obj) {
  Напишите аналог встроенного метода slice для работы с массивами
  Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
  */
-function slice(array, from=0, to) {
+function slice(array, from, to) {
+    let arr=[];
+
+    if (to > 0 && to > from) {
+        for (let i=from; i<to; i++) {
+            arr.push(array[i]);
+        }
+    } else if (to<0) {
+        for (let i=from; i<array.length+to; i++) {
+            arr.push(array[i]);
+        }
+    } else if (typeof from === 'undefined' && typeof to === 'undefined') {
+        arr=array
+    } else if (typeof to ==='undefined') {
+        for (let i=from; i<array.length; i++) {
+            arr.push(array[i]);
+        }
+    }
+
+    return arr;
 }
 
 /*
@@ -85,6 +104,16 @@ function slice(array, from=0, to) {
  Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
  */
 function createProxy(obj) {
+    obj = new Proxy(obj, {
+      set(target, prop, val) {
+        if (typeof target[prop] === 'number') {
+          target[prop]=val;
+          return val*val;
+        } else {
+          return false;
+        }
+      }
+    });
 }
 
 export {
