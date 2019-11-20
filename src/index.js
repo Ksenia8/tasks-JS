@@ -20,7 +20,7 @@ function forEach(array, fn) {
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
 function map(array, fn) {
-    var newArr=[];
+    let newArr=[];
 
     for (let i=0; i<array.length;i++) {
         let elem=fn(array[i], i, array);
@@ -105,14 +105,13 @@ function slice(array, from, to) {
  */
 function createProxy(obj) {
     obj = new Proxy(obj, {
-      set(target, prop, val) {
-        if (typeof target[prop] === 'number') {
-          target[prop]=val;
-          return val*val;
-        } else {
-          return false;
+        set(target, prop, val) {
+            if (typeof target[prop] === 'number') {
+                target[prop]=val;
+
+                return val*val;
+            } 
         }
-      }
     });
 }
 
