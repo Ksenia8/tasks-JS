@@ -17,29 +17,25 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-    let quantityTrue=0;
-    let quantityFalse=0;
-   
+    let newArray = [];
+       
     if (!(array instanceof Array ) || array.length == 0) {
         throw new Error('empty array');
     } else if (typeof fn != 'function') {
         throw new Error('fn is not a function');
-    } else {
-        for (let i = 0; i < array.length; i++) {
+    } 
+    for (let i = 0; i < array.length; i++) {
             
-            if (fn(array[i])) {
-                quantityTrue++;
-            } else {
-                quantityFalse++
-            }
-            
-            if (array.length == quantityTrue) {
-                return true;
-            } else if (quantityFalse > 0) {
-                return false;
-            }
+        if (fn(array[i])) {
+            newArray.push(array[i]);
         }
     }
+            
+    if (newArray.length == array.length) {
+        return true;
+    }
+
+    return false;
 }
 
 /*
@@ -59,29 +55,25 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-    let quantityTrue=0;
-    let quantityFalse=0;
+    let newArray = [];
        
     if (!(array instanceof Array ) || array.length == 0) {
         throw new Error('empty array');
     } else if (typeof fn != 'function') {
         throw new Error('fn is not a function');
-    } else {
-        for (let i = 0; i < array.length; i++) {
+    }
+    for (let i = 0; i < array.length; i++) {
             
-            if (fn(array[i])) {
-                quantityTrue++;
-            } else {
-                quantityFalse++
-            }
-            
-            if (quantityTrue>0) {
-                return true;
-            } else if (array.length==quantityFalse) {
-                return false;
-            }
+        if (fn(array[i])) {
+            newArray.push(array[i]);
         }
     }
+
+    if (newArray.length != []) {
+        return true;
+    }
+
+    return false;
 }
 
 /*
@@ -100,17 +92,16 @@ function returnBadArguments(fn) {
     
     if (typeof fn != 'function') {
         throw new Error('fn is not a function');
-    } else {
-        for (let i=1; i<arguments.length; i++) {
-            try {
-                fn(arguments[i]);
-            } catch (e) {
-                arr.push(arguments[i]);
-            }   
-        }
-
-        return arr;
+    } 
+    for (let i=1; i<arguments.length; i++) {
+        try {
+            fn(arguments[i]);
+        } catch (e) {
+            arr.push(arguments[i]);
+        }   
     }
+
+    return arr;
 }
 
 /*
@@ -158,9 +149,8 @@ function calculator(number = 0) {
         for (let i=0; i<arguments.length; i++) {
             if (arguments[i] === 0) {
                 throw new Error('division by 0');
-            } else { 
-                number /= arguments[i];
             }
+            number /= arguments[i];
         }
 
         return number;
