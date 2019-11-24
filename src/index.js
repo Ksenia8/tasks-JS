@@ -19,31 +19,20 @@
 function isAllTrue(array, fn) {
     let newArray = [];
     
-    function err (array, fn) {
-        if (!(array instanceof Array ) || array.length == 0) {
+    if (!(array instanceof Array ) || array.length == 0) {
 
-            return {
-                error: 10001
-            }
+        return {
+            error: 10001
         }
+    }
 
-        if (typeof fn != 'function') {
+    if (typeof fn != 'function') {
             
-            return {
-                error: 10002
-            }
+        return {
+            error: 10002
         }
     }
-
-    if (err().error === 10001) {
-        throw new Error('empty array'); 
-    } 
-    
-    if (err().error === 10002) {
-        throw new Error('fn is not a function');
-    }
-
-    
+        
     for (let i = 0; i < array.length; i++) {
             
         if (fn(array[i])) {
@@ -78,10 +67,19 @@ function isSomeTrue(array, fn) {
     let newArray = [];
        
     if (!(array instanceof Array ) || array.length == 0) {
-        throw new Error('empty array');
-    } else if (typeof fn != 'function') {
-        throw new Error('fn is not a function');
+
+        return {
+            error: 10001
+        }
     }
+
+    if (typeof fn != 'function') {
+            
+        return {
+            error: 10002
+        }
+    }
+    
     for (let i = 0; i < array.length; i++) {
             
         if (fn(array[i])) {
