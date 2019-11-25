@@ -17,7 +17,6 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-    let newArray = [];
     
     if (!(array instanceof Array ) || array.length == 0) {
 
@@ -35,16 +34,13 @@ function isAllTrue(array, fn) {
         
     for (let i = 0; i < array.length; i++) {
             
-        if (fn(array[i])) {
-            newArray.push(array[i]);
+        if (!fn(array[i])) {
+           
+            return false;
         }
     }
-                
-    if (newArray.length == array.length) {
-        return true;
-    }
-    
-    return false;
+
+    return true;
 }
 
 /*
@@ -64,7 +60,6 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-    let newArray = [];
        
     if (!(array instanceof Array ) || array.length == 0) {
 
@@ -83,12 +78,8 @@ function isSomeTrue(array, fn) {
     for (let i = 0; i < array.length; i++) {
             
         if (fn(array[i])) {
-            newArray.push(array[i]);
+            return true;
         }
-    }
-
-    if (newArray.length != []) {
-        return true;
     }
 
     return false;
