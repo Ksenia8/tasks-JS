@@ -189,30 +189,30 @@ function collectDOMStat(root) {
    }
  */
 function observeChildNodes(where, fn) {
-  const config = {
-    childList: true
-  }
-
-  let observer = new MutationObserver(fn);
-
-  obj={};
-
-  function fn(elemList, observer) {
-    for (let elem of elemList) {
-      if(elem.addedNodes.length) {
-        obj.type = 'insert',
-        obj.nodes = elem.addedNodes
-      }
-      if(elem.removedNoder.length) {
-        obj.type = 'remove',
-        obj.nodes = elem.removedNoder
-      }
+    const config = {
+        childList: true
     }
 
-    return obj;
-  }
+    let observer = new MutationObserver(fn);
 
-  observer.observe(where, config);
+    let obj={};
+
+    function fn(elemList, observer) {
+        for (let elem of elemList) {
+            if (elem.addedNodes.length) {
+                obj.type = 'insert';
+                obj.nodes = elem.addedNodes;
+            }
+            if (elem.removedNoder.length) {
+                obj.type = 'remove';
+                obj.nodes = elem.removedNoder;
+            }
+        }
+
+        return obj;
+    }
+
+    observer.observe(where, config);
 }
 
 export {
