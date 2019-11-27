@@ -28,7 +28,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
-    
+    where.insertBefore(what, where.firstChild);
 }
 
 /*
@@ -51,14 +51,14 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
-    const element = where;
-
     let arr = [];
-
-    for (let item of element.children) {
-        arr.push(item);
+  
+    for (let item of where.children) {
+        if (item.nextElementSibling && item.nextElementSibling.nodeName === 'P') {
+            arr.push(item);
+        }
     }
-
+    
     return arr;
 }
 
@@ -82,8 +82,8 @@ function findAllPSiblings(where) {
 function findError(where) {
     var result = [];
 
-    for (var child of where.childNodes) {
-        result.push(child.innerText);
+    for (let child of where.children) {
+        result.push(child.textContent);
     }
 
     return result;
@@ -102,6 +102,12 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+    
+    for (let item of where.childNodes) {
+        if (item.nodeType === 3) {
+            item.remove();
+        }
+    }
 }
 
 /*
@@ -116,6 +122,15 @@ function deleteTextNodes(where) {
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
+
+    for (let i = 0; i < where.childNodes.length; i++) {
+        if (where.childNodes[i].nodeType === 3) {
+            where.childNodes[i].remove();
+            i--;
+        } else if (where.childNodes[i].nodeType === 1) {
+            deleteTextNodesRecursive(where.childNodes[i]);
+        }
+    }
 }
 
 /*
@@ -174,6 +189,30 @@ function collectDOMStat(root) {
    }
  */
 function observeChildNodes(where, fn) {
+  const config = {
+    childList: true
+  }
+
+  let observer = new MutationObserver(fn);
+
+  obj={};
+
+  function fn(elemList, observer) {
+    for (let elem of elemList) {
+      if(elem.addedNodes.length) {
+        obj.type = 'insert',
+        obj.nodes = elem.addedNodes
+      }
+      if(elem.removedNoder.length) {
+        obj.type = 'remove',
+        obj.nodes = elem.removedNoder
+      }
+    }
+
+    return obj;
+  }
+
+  observer.observe(where, config);
 }
 
 export {
