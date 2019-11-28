@@ -14,8 +14,7 @@ function createDivWithText(text) {
     const element = document.createElement('div');
 
     element.textContent = text;
-    document.body.appendChild(element);
-
+    
     return element;
 }
 
@@ -123,10 +122,9 @@ function deleteTextNodes(where) {
  */
 function deleteTextNodesRecursive(where) {
 
-    for (let i = 0; i < where.childNodes.length; i++) {
+    for (let i = where.childNodes.length-1; i>=0; i--) {
         if (where.childNodes[i].nodeType === 3) {
             where.childNodes[i].remove();
-            i--;
         } else if (where.childNodes[i].nodeType === 1) {
             deleteTextNodesRecursive(where.childNodes[i]);
         }
