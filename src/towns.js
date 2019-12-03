@@ -121,7 +121,7 @@ filterInput.addEventListener('keyup', function(e) {
             div.innerHTML = loadTowns[i].name;
             filterResult.appendChild(div);
             
-        } else if (!isMatching(loadTowns[i].name, substring)) {
+        } else if (!substring.length) {
             filterResult.innerHTML = '';
         }
     }
