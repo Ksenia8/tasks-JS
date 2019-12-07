@@ -106,8 +106,15 @@ filterNameInput.addEventListener('keyup', function() {
 });
 
 addButton.addEventListener('click', () => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
+// здесь можно обработать нажатие на кнопку "добавить cookie"
+    function isMatching(full, chunk) {
+        if (full.toLowerCase().includes(chunk.toLowerCase())) {
+            return true;
+        }
 
+        return false;
+    }
+    
     // функция добавляет таблицу с cookie
     function createTable(name, value) {
         const tr = document.createElement('tr');
@@ -138,15 +145,26 @@ addButton.addEventListener('click', () => {
     while (listTable.firstChild) {
         listTable.removeChild(listTable.firstChild);
     }
-    // присваивание переменной obj ссылку на объект document.cookie
+
     let obj = convertObj();
 
-    // перебор объекта и добавление в таблицу
-    for (let cookie in obj) {
-        if ((cookie.name === 'addNameInput.value') || (obj[cookie] === 'addValueInput.value')) {
-            listTable.appendChild(createTable(cookie, addNameInput.value));
-        } else {
-            listTable.appendChild(createTable(cookie, obj[cookie]));
+    // если текстовое поле не пустое
+    if (filterNameInput.value !=='') {
+        // перебираем cookies на совпадения
+        for (let cookie in obj) {
+            // если есть совпадения, то выводим в таблицу
+            if (isMatching(cookie, filterNameInput.value) || isMatching(obj[cookie], filterNameInput.value)) {
+                listTable.appendChild(createTable(cookie, obj[cookie]));
+            }
+            // если нет совпадений, то ничего не делать, т.к. таблица очищена
+        }
+    // если текстовой поле пустое
+    } else if (filterNameInput.value === '') {
+        // добавляем все cookies в таблицу
+        for (let cookie in obj) {
+            if (obj.hasOwnProperty(cookie)) {
+                listTable.appendChild(createTable(cookie, obj[cookie]));
+            }
         }
     }
 
