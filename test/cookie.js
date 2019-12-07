@@ -37,7 +37,7 @@ describe('ДЗ 7.2 - Cookie editor', () => {
             }
         });
 
-        it('на старнице должны быть элементы с нужными id', () => {
+        it('на странице должны быть элементы с нужными id', () => {
             filterNameInput = homeworkContainer.querySelector('#filter-name-input');
             addNameInput = homeworkContainer.querySelector('#add-name-input');
             addValueInput = homeworkContainer.querySelector('#add-value-input');
@@ -219,7 +219,7 @@ describe('ДЗ 7.2 - Cookie editor', () => {
                 assert.equal(listTable.children.length, 1, 'не должна быть в таблице т.к. не соответствует фильтру');
             });
 
-            it('удалить cookie из табилицы, если ее значение перестало соответствовать фильтр', () => {
+            it('удалить cookie из таблицы, если ее значение перестало соответствовать фильтр', () => {
                 let cookies;
 
                 addNameInput.value = 'test-cookie-name-1';

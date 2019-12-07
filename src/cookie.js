@@ -45,8 +45,125 @@ const listTable = homeworkContainer.querySelector('#list-table tbody');
 
 filterNameInput.addEventListener('keyup', function() {
     // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
+    function isMatching(full, chunk) {
+        if (full.toLowerCase().includes(chunk.toLowerCase())) {
+            return true;
+        }
+
+        return false;
+    }
+    // функция создает таблицу с cookie
+    function createTable(name, value) {
+        let tr = document.createElement('tr');
+
+        listTable.appendChild(tr);
+        tr.innerHTML = '<th>' + `${name}` + '</th><th>' + `${value}` + '</th><th><button>Удалить</button></th>';
+
+        return tr;
+    }
+    // функция преобразует document.cookie в объект
+    function convertObj() {
+        if (document.cookie) {
+      
+            return document.cookie.split('; ').reduce((obj, current) => {
+                const [name, value] = current.split('=');
+
+                obj[name]=value;
+
+                return obj;
+            }, {});
+        }
+    }
+    // очищаем таблицу
+    while (listTable.firstChild) {
+        listTable.removeChild(listTable.firstChild);
+    }
+
+    let obj = convertObj();
+
+    // если текстовое поле не пустое
+    if (filterNameInput.value !=='') {
+        // перебираем cookies на совпадения
+        for (let cookie in obj) {
+            // если есть совпадения, то выводим в таблицу
+            if (isMatching(cookie, filterNameInput.value) || isMatching(obj[cookie], filterNameInput.value)) {
+                listTable.appendChild(createTable(cookie, obj[cookie]));
+            }
+            // если нет совпадений, то ничего не делать, т.к. таблица очищена
+        }
+    // если текстовой поле пустое
+    } else if (filterNameInput.value === '') {
+        // добавляем все cookies в таблицу
+        for (let cookie in obj) {
+            if (obj.hasOwnProperty(cookie)) {
+                listTable.appendChild(createTable(cookie, obj[cookie]));
+            }
+        }
+    }
+
+    filterNameInput.innerText = '';
+
 });
 
 addButton.addEventListener('click', () => {
     // здесь можно обработать нажатие на кнопку "добавить cookie"
+
+    // функция добавляет таблицу с cookie
+    function createTable(name, value) {
+        const tr = document.createElement('tr');
+
+        listTable.appendChild(tr);
+        tr.innerHTML = '<th>' + `${name}` + '</th><th>' + `${value}` + '</th><th><button>Удалить</button></th>';
+
+        return tr;
+    }
+    // функция преобразует document.cookie в объект
+    function convertObj() {
+        if (document.cookie) {
+        
+            return document.cookie.split('; ').reduce((obj, current) => {
+                const [name, value] = current.split('=');
+
+                obj[name]=value;
+
+                return obj;
+            }, {});
+        }
+    }
+    // создание и добавление cookie в document.cookie
+    if ((addNameInput.value !== undefined) && (addValueInput.value !== undefined)) {
+        document.cookie = `${addNameInput.value} = ${addValueInput.value}`;
+    }
+    // очищаем таблицу
+    while (listTable.firstChild) {
+        listTable.removeChild(listTable.firstChild);
+    }
+    // присваивание переменной obj ссылку на объект document.cookie
+    let obj = convertObj();
+
+    // перебор объекта и добавление в таблицу
+    for (let cookie in obj) {
+        if ((cookie.name === 'addNameInput.value') || (obj[cookie] === 'addValueInput.value')) {
+            listTable.appendChild(createTable(cookie, addNameInput.value));
+        } else {
+            listTable.appendChild(createTable(cookie, obj[cookie]));
+        }
+    }
+
+    // удаление cookie
+    listTable.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            
+            let objCookie = convertObj();
+
+            let name = e.target.parentNode.parentNode.firstChild.innerText;
+            let value = objCookie[e.target.parentNode.parentNode.firstChild.innerText];
+
+            // удаление из браузера
+            document.cookie = `${name} = ${value}; expires=` + new Date(0);
+            // удаление из таблицы
+            e.target.parentNode.parentNode.innerHTML = '';
+
+        }
+    });     
 });
