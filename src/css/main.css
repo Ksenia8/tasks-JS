@@ -1,0 +1,137 @@
+*,*::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+.map {
+    height: 100vh;
+    width: 100%;
+}
+
+/* balloon */
+.review__balloon {
+    max-width: 379px;
+    height: 52.7rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    /* display: block; */
+}
+
+.review__header {
+    width: 100%;
+    height: 4.4rem;
+    background-color: #ff8663;
+    border-radius: 1rem 1rem 0 0;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.review__body {
+    width: 100%;
+    height: 15.5rem;
+}
+
+.review__form {
+    width: 100%;
+    height: 32.8rem;
+    
+}
+
+.review__form-header {
+    width: 100%;
+    height: 1.3rem;
+    color: #ff8663;
+    font-family: "Fira Sans";
+    font-size: 1.6rem;
+    font-weight: 50 rem;
+    text-transform: uppercase;
+    margin: 1.5rem;
+}
+
+.review__name, .review__place, .review__text {
+    width: 35.1rem;
+    height: 3.2rem;
+    border: 1px solid #c4c4c4;
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    padding-left: 1.5rem;
+    margin-bottom: 1.4rem;
+    margin-left: 1.4rem;
+    
+}
+
+textarea {
+    resize: none;
+}
+
+.review__text {
+    width: 92%;
+    height: 12.8rem;
+    border-radius: 1rem;
+    color: #9f9f9f;
+    font-size: 15px;
+    
+}
+
+.btn {
+    width: 8.7rem;
+    height: 3rem;
+    background-color: #ff8663;
+    border-radius: 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 300;
+    outline: none;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: baseline;
+    border: none;
+    margin-left: 28rem;
+}
+
+.review__close {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 1.5rem;
+    position: fixed;
+    left: 33.5rem;
+}
+
+.review_point-link {
+    width: 1rem;
+    height: 1.4rem;
+    display: block;
+    text-align: left;
+}
+
+.review__point-img {
+    margin: 1.5rem;
+}
+
+.review__header-address {
+    width: 22.2rem;
+    margin: 1.2rem;
+    color: #fff;
+}
+
+/* стили для списка с отзывами */
+.review__list {
+    height: 15.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.review__list-info {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ---------- */
