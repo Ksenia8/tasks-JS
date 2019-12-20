@@ -17,8 +17,8 @@ body {
 
 /* balloon */
 .review__balloon {
-    max-width: 379px;
-    height: 52.7rem;
+    max-width: 37.9rem;
+    max-height: 52.7rem;
     background-color: #fff;
     border-radius: 1rem;
     display: flex;
